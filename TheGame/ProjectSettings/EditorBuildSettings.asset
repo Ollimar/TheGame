@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SceneSummer.unity
+    guid: 5a36d0c3ceb994341b690abaec91a28f
   m_configObjects: {}

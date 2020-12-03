@@ -11,7 +11,9 @@ public class PlayerScript : MonoBehaviour
 
     private Vector3 movement;
     private Rigidbody myRB;
+    private Animator myAnim;
 
+    public float rayCheckLength = 0.4f;
     public ParticleSystem steps;
     public ParticleSystem stepPuff;
 
@@ -19,21 +21,24 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
+        myAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        myAnim.SetFloat("yVelocity",myRB.velocity.y);
         if(Input.GetButtonDown("Jump") && canJump)
         {
+            myAnim.SetBool("isJumping",true);
             myRB.AddForce(Vector3.up * jumpSpeed);
         }
     }
 
     public void Move(float hor, float ver)
     {
-        movement.Set(hor, 0f, ver);
 
+        movement.Set(hor, 0f, ver);
         movement = movement.normalized * speed * Time.deltaTime;
 
         if(hor !=0f || ver !=0f)
@@ -43,10 +48,12 @@ public class PlayerScript : MonoBehaviour
                 steps.Play();
             }
             Rotating(hor, ver);
+            myAnim.SetBool("isRunning", true);
         }
         else
         {
             steps.Stop();
+            myAnim.SetBool("isRunning", false);
         }
 
         if(!canJump)
@@ -75,12 +82,18 @@ public class PlayerScript : MonoBehaviour
         Move(hor, ver);
 
 
-        if(Physics.Raycast(transform.position,Vector3.down,out hit,1.2f))
+        if(Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
         {
             if(!canJump)
             {
-                Instantiate(stepPuff, new Vector3(transform.position.x,transform.position.y-1f,transform.position.z), transform.rotation);
+                myAnim.SetBool("isJumping", false);
             }
+
+            if (myRB.velocity.y < -2f)
+            {
+               Instantiate(stepPuff, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+            }
+
             canJump = true;
         }
         else
