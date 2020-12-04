@@ -13,6 +13,8 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody myRB;
     private Animator myAnim;
 
+    public GameObject seed;
+
     public float rayCheckLength = 0.4f;
     public ParticleSystem steps;
     public ParticleSystem stepPuff;
@@ -32,6 +34,11 @@ public class PlayerScript : MonoBehaviour
         {
             myAnim.SetBool("isJumping",true);
             myRB.AddForce(Vector3.up * jumpSpeed);
+        }
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(seed,new Vector3(transform.position.x,transform.position.y,transform.position.z+1f),transform.rotation);
         }
     }
 
