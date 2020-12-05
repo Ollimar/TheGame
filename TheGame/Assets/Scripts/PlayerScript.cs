@@ -94,12 +94,13 @@ public class PlayerScript : MonoBehaviour
             if(!canJump)
             {
                 myAnim.SetBool("isJumping", false);
+                if (myRB.velocity.y < -2f)
+                {
+                    Instantiate(stepPuff, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+                }
             }
 
-            if (myRB.velocity.y < -2f)
-            {
-               Instantiate(stepPuff, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
-            }
+
 
             canJump = true;
         }
