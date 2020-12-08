@@ -43,11 +43,14 @@ public class GameManager : MonoBehaviour
         }
         */
 
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time*-1f);
+
         if(timer > changeTimer)
         {
             moveTimer += Time.deltaTime;
             wheel[0].Rotate(Vector3.up * wheelSpeed * Time.deltaTime);
             wheel[1].Rotate(Vector3.up * -wheelSpeed * Time.deltaTime);
+            wheel[2].Rotate(Vector3.up * -wheelSpeed * Time.deltaTime);
 
             if (moveTimer > stopTime)
             {
