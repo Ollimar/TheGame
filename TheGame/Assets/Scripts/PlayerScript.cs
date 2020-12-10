@@ -14,6 +14,10 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody myRB;
     private Animator myAnim;
 
+    // Camera variables
+    public Transform cameraTarget;
+    public float cameraPoint;
+
     public GameObject seed;
 
     public float rayCheckLength = 0.4f;
@@ -116,9 +120,11 @@ public class PlayerScript : MonoBehaviour
 
         Move(hor, ver);
 
+        cameraTarget.position = new Vector3(transform.position.x, cameraPoint, transform.position.z);
 
         if(Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
         {
+            cameraPoint = hit.point.y;
             if(!canJump)
             {
                 myAnim.SetBool("isJumping", false);
