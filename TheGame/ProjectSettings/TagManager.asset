@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Turnip
   - Wheel
+  - DialogueTrigger
+  - Trampoline
   layers:
   - Default
   - TransparentFX

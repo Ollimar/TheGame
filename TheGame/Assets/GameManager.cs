@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float wheelSpeed;
     public int wheels;
     public Transform[] wheel;
+    public bool rotate = false;
 
     public GameObject sun;
     public Material mySkybox;
@@ -48,15 +49,24 @@ public class GameManager : MonoBehaviour
         if(timer > changeTimer)
         {
             moveTimer += Time.deltaTime;
-            wheel[0].Rotate(Vector3.up * wheelSpeed * Time.deltaTime);
-            wheel[1].Rotate(Vector3.up * -wheelSpeed * Time.deltaTime);
-            wheel[2].Rotate(Vector3.up * -wheelSpeed * Time.deltaTime);
+            rotate = true;
 
             if (moveTimer > stopTime)
             {
                 timer = 0f;
                 moveTimer = 0f;
+                rotate = false;
             }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if(rotate)
+        {
+            wheel[0].Rotate(Vector3.up * wheelSpeed);
+            wheel[1].Rotate(Vector3.up * -wheelSpeed);
+            wheel[2].Rotate(Vector3.up * -wheelSpeed);
         }
     }
 }

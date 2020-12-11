@@ -5,10 +5,12 @@ using UnityEngine;
 public class WindScript : MonoBehaviour
 {
     private Animator myAnim;
+    private Transform mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
+        mainCamera = Camera.main.transform;
         myAnim = GetComponent<Animator>();
         float r = Random.Range(0, 2);
         if (r == 0)
@@ -20,7 +22,7 @@ public class WindScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.parent.position = new Vector3(mainCamera.position.x, mainCamera.position.y, mainCamera.position.z-5f);
     }
 
     public void ChangePosition()

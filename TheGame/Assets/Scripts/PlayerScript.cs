@@ -74,6 +74,11 @@ public class PlayerScript : MonoBehaviour
         movement.Set(hor, 0f, ver);
         movement = movement.normalized * speed * Time.deltaTime;
 
+        if(hor == 0f && ver == 0f)
+        {
+            myRB.velocity = new Vector3(0f,myRB.velocity.y,0f);
+        }
+
         if(hor !=0f || ver !=0f)
         {
             coolDownTime += Time.deltaTime;
@@ -124,8 +129,10 @@ public class PlayerScript : MonoBehaviour
 
         if(Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
         {
+
             cameraPoint = hit.point.y;
-            if(!canJump)
+
+            if (!canJump)
             {
                 myAnim.SetBool("isJumping", false);
                 if (myRB.velocity.y < -2f)
