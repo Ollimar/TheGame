@@ -29,11 +29,14 @@ public class PlayerScript : MonoBehaviour
     public bool holdingTurnip = false;
     public GameObject activeTurnip;
 
+    private DialogueManager dialogueManager;
+
     // Start is called before the first frame update
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
+        dialogueManager = GameObject.Find("GameManager").GetComponent<DialogueManager>();
     }
 
     // Update is called once per frame
@@ -167,6 +170,11 @@ public class PlayerScript : MonoBehaviour
             canPickTurnip = true;
             activeTurnip = other.gameObject;
         }
+
+        if(other.gameObject.tag == "DialogueTrigger")
+        {
+            dialogueManager.Speak();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -184,6 +192,11 @@ public class PlayerScript : MonoBehaviour
         {
             canPickTurnip = false;
             activeTurnip = null;
+        }
+
+        if (other.gameObject.tag == "DialogueTrigger")
+        {
+            dialogueManager.Speak();
         }
     }
 }
