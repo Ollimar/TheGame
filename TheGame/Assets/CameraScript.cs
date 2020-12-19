@@ -13,6 +13,9 @@ public class CameraScript : MonoBehaviour
 
     public float cameraSmoothing = 0.1f;
 
+    public bool canMoveCamera = true;
+    public bool dialogueOn = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +30,38 @@ public class CameraScript : MonoBehaviour
         Vector3 newRot = new Vector3(cameraRotation, transform.rotation.y, transform.rotation.z);
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, newRot, cameraSmoothing * Time.deltaTime);
 
-        if(Input.GetAxis("Mouse Y") > 0.1f && cameraDistance >10f)
+        if(canMoveCamera)
         {
-            cameraDistance = 10;
-            cameraHeight = 5f;
-            cameraRotation = 15f;
+            if (Input.GetAxis("Mouse Y") > 0.1f && cameraDistance > 10f)
+            {
+                cameraDistance = 10;
+                cameraHeight = 5f;
+                cameraRotation = 15f;
+            }
+            else if (Input.GetAxis("Mouse Y") < -0.1f && cameraDistance < 15f)
+            {
+                cameraDistance = 15f;
+                cameraHeight = 7f;
+                cameraRotation = 30f;
+            }
         }
-        else if(Input.GetAxis("Mouse Y") < -0.1f && cameraDistance < 15f)
-        {
-            cameraDistance = 15f;
-            cameraHeight = 7f;
-            cameraRotation = 30f;
-        }
+    }
+
+    public void DialogueCamera()
+    {
+        cameraDistance = 7f;
+        cameraHeight = 3f;
+        cameraRotation = 15f;
+        canMoveCamera = false;
+
+    }
+
+    public void ReturnCamera()
+    {
+        cameraDistance = 15f;
+        cameraHeight = 7f;
+        cameraRotation = 30f;
+        canMoveCamera = true;
+
     }
 }

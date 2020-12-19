@@ -3,9 +3,12 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - CameraScript
     - CloudMovementScript
+    - DialogueManager
     - DoorTriggerScript
     - GameManager
+    - NPCScript
     - PlayerScript
+    - SunScript
     - WindScript
     Unity.Postprocessing.Runtime.dll:
     - UnityEngine.Rendering.PostProcessing.AmbientOcclusion
@@ -28,12 +31,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationBlendTree.Node
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateEditor
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -42,6 +41,7 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
@@ -98,39 +98,47 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11352}
     - Class: 114
-      Script: {instanceID: 11534}
+      Script: {instanceID: 11370}
     - Class: 114
-      Script: {instanceID: 11584}
+      Script: {instanceID: 11458}
     - Class: 114
-      Script: {instanceID: 11604}
+      Script: {instanceID: 11462}
     - Class: 114
-      Script: {instanceID: 11606}
+      Script: {instanceID: 11540}
     - Class: 114
-      Script: {instanceID: 11726}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 11946}
+      Script: {instanceID: 11610}
     - Class: 114
-      Script: {instanceID: 12060}
+      Script: {instanceID: 11612}
     - Class: 114
-      Script: {instanceID: 12108}
+      Script: {instanceID: 11732}
     - Class: 114
-      Script: {instanceID: 12182}
+      Script: {instanceID: 11952}
     - Class: 114
-      Script: {instanceID: 12404}
+      Script: {instanceID: 12066}
     - Class: 114
-      Script: {instanceID: 13156}
+      Script: {instanceID: 12114}
     - Class: 114
-      Script: {instanceID: 13192}
+      Script: {instanceID: 12188}
     - Class: 114
-      Script: {instanceID: 13476}
+      Script: {instanceID: 12410}
     - Class: 114
-      Script: {instanceID: 13518}
+      Script: {instanceID: 12576}
     - Class: 114
-      Script: {instanceID: 13538}
+      Script: {instanceID: 13162}
     - Class: 114
-      Script: {instanceID: 13608}
+      Script: {instanceID: 13198}
     - Class: 114
-      Script: {instanceID: 100148}
+      Script: {instanceID: 13346}
+    - Class: 114
+      Script: {instanceID: 13484}
+    - Class: 114
+      Script: {instanceID: 13526}
+    - Class: 114
+      Script: {instanceID: 13546}
+    - Class: 114
+      Script: {instanceID: 13616}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -206,6 +214,12 @@ ScriptsOnlyBuild:
     className: TMP_SelectionCaret
   - hash:
       serializedVersion: 2
+      Hash: 9b596df5334d17c679ebd0ebf3c1f724
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DoorTriggerScript
+  - hash:
+      serializedVersion: 2
       Hash: 87ff43d2baf3385cba327d8f803a4ebb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -242,10 +256,22 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
+      Hash: 74fbe3ac885b0789cc365159bade00e9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NPCScript
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayerQuitHandler
+  - hash:
+      serializedVersion: 2
+      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SunScript
   - hash:
       serializedVersion: 2
       Hash: af93f9c42e90877a9ba31e37adfd900c
@@ -542,7 +568,7 @@ ScriptsOnlyBuild:
     className: Demonstration_NoclipController
   - hash:
       serializedVersion: 2
-      Hash: 86c57bebe5149d0e891191e9da21f53b
+      Hash: ddb75397124d04a86e027f51d4da0c67
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraScript
@@ -830,7 +856,7 @@ ScriptsOnlyBuild:
     className: CinemachineVolumeSettings
   - hash:
       serializedVersion: 2
-      Hash: 011ed3e3c10d85749b864fb70b5bfe09
+      Hash: d0de0ca4a02b85ea6abd439779a6edbd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerScript
@@ -876,6 +902,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: Cinemachine3rdPersonAim
+  - hash:
+      serializedVersion: 2
+      Hash: 53c0bc71ffa47f84e2622afc77f3cf31
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DialogueManager
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -1038,12 +1070,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 9b596df5334d17c679ebd0ebf3c1f724
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: DoorTriggerScript
   platform: 5
   scenePathNames:
   - Assets/Scenes/SceneSummer.unity

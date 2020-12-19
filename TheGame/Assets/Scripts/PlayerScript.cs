@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public bool canMove = true;
     public float speed = 10f;
     public float jumpSpeed = 12f;
     public float turnSmoothing = 10f;
@@ -17,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     // Camera variables
     public Transform cameraTarget;
     public float cameraPoint;
+    public CameraScript cameraScript;
 
     public GameObject seed;
 
@@ -37,13 +39,14 @@ public class PlayerScript : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
         dialogueManager = GameObject.Find("GameManager").GetComponent<DialogueManager>();
+        cameraScript = Camera.main.GetComponent<CameraScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
-        if(Input.GetButtonDown("Jump") && canJump)
+        if(Input.GetButtonDown("Jump") && canJump && canMove)
         {
             myAnim.SetBool("isJumping",true);
             myRB.AddForce(Vector3.up * jumpSpeed);
@@ -126,7 +129,10 @@ public class PlayerScript : MonoBehaviour
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
 
-        Move(hor, ver);
+        if(canMove)
+        {
+            Move(hor, ver);
+        }
 
         cameraTarget.position = new Vector3(transform.position.x, cameraPoint, transform.position.z);
 
@@ -153,8 +159,6 @@ public class PlayerScript : MonoBehaviour
                 transform.parent = null;
             }
 
-
-
             canJump = true;
         }
         else
@@ -171,10 +175,7 @@ public class PlayerScript : MonoBehaviour
             activeTurnip = other.gameObject;
         }
 
-        if(other.gameObject.tag == "DialogueTrigger")
-        {
-            dialogueManager.Speak();
-        }
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -183,6 +184,18 @@ public class PlayerScript : MonoBehaviour
         {
             canPickTurnip = true;
             activeTurnip = other.gameObject;
+        }
+
+        if (other.gameObject.tag == "DialogueTrigger")
+        {
+            if(Input.GetButtonDown("Fire1") && !dialogueManager.dialogueWindow.activeSelf)
+            {
+                other.gameObject.GetComponent<NPCScript>().dialogueIndicator.SetActive(false);
+                dialogueManager.dialogueWindow.SetActive(true);
+                dialogueManager.ChangeDialogue();
+                canMove = false;
+                cameraScript.DialogueCamera();
+            }
         }
     }
 
@@ -196,7 +209,7 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.tag == "DialogueTrigger")
         {
-            dialogueManager.Speak();
+
         }
     }
 }
