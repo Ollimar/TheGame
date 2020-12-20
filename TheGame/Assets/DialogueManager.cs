@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
 
     public int lineNumber;
     public int dialogueNumber;
+    public bool lineFull = true;
 
     public CameraScript cameraScript;
 
@@ -42,60 +43,59 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && dialogueWindow.activeSelf)
         {
             ChangeLine();
         }
     }
 
-    public void ChangeDialogue()
+    public void ChangeDialogue(int diNum)
     {
         lineNumber = 0;
-        dialogueNumber++;
         StartCoroutine("ShowText");
 
 
-        if (dialogueNumber == 1)
+        if (diNum == 1)
         {
             dialogueLines = dialogueLines1;
         }
 
-        else if(dialogueNumber == 2)
+        else if(diNum == 2)
         {
             dialogueLines = dialogueLines2;
         }
 
-        else if (dialogueNumber == 3)
+        else if (diNum == 3)
         {
             dialogueLines = dialogueLines3;
         }
 
-        else if (dialogueNumber == 4)
+        else if (diNum == 4)
         {
             dialogueLines = dialogueLines4;
         }
 
-        else if (dialogueNumber == 5)
+        else if (diNum == 5)
         {
             dialogueLines = dialogueLines5;
         }
 
-        else if (dialogueNumber == 6)
+        else if (diNum == 6)
         {
             dialogueLines = dialogueLines6;
         }
 
-        else if (dialogueNumber == 7)
+        else if (diNum == 7)
         {
             dialogueLines = dialogueLines7;
         }
 
-        else if (dialogueNumber == 8)
+        else if (diNum == 8)
         {
             dialogueLines = dialogueLines8;
         }
 
-        else if (dialogueNumber == 9)
+        else if (diNum == 9)
         {
             dialogueLines = dialogueLines9;
         }
@@ -108,18 +108,21 @@ public class DialogueManager : MonoBehaviour
     public void ChangeLine()
     {
         lineNumber++;
+        lineFull = false;
 
         if (lineNumber > dialogueLines.Length-1)
         {
             cameraScript.ReturnCamera();
             dialogueWindow.SetActive(false);
             player.canMove = true;
+            //lineNumber = 0;
         }
 
         else
         {
             currentLine = dialogueLines[lineNumber];
-            StartCoroutine("ShowText");   
+            StartCoroutine("ShowText");
+            lineFull = true;
         }
     }
 

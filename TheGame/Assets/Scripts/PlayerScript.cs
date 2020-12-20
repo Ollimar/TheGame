@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject activeTurnip;
 
     private DialogueManager dialogueManager;
+    private NPCScript npc;
 
     // Start is called before the first frame update
     void Start()
@@ -175,6 +177,20 @@ public class PlayerScript : MonoBehaviour
             activeTurnip = other.gameObject;
         }
 
+        if(other.gameObject.name == "ForestArea")
+        {
+            cameraScript.OverHeadCamera();
+        }
+
+        if(other.gameObject.name == "DoorOutToIn")
+        {
+            ChangeLevel(1);
+        }
+
+        if (other.gameObject.name == "DoorInToOut")
+        {
+            ChangeLevel(0);
+        }
 
     }
 
@@ -188,11 +204,12 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.tag == "DialogueTrigger")
         {
-            if(Input.GetButtonDown("Fire1") && !dialogueManager.dialogueWindow.activeSelf)
+            npc = other.gameObject.GetComponent<NPCScript>();
+            if (Input.GetButtonDown("Fire1") && !dialogueManager.dialogueWindow.activeSelf)
             {
                 other.gameObject.GetComponent<NPCScript>().dialogueIndicator.SetActive(false);
                 dialogueManager.dialogueWindow.SetActive(true);
-                dialogueManager.ChangeDialogue();
+                npc.SetDialogue();
                 canMove = false;
                 cameraScript.DialogueCamera();
             }
@@ -207,9 +224,14 @@ public class PlayerScript : MonoBehaviour
             activeTurnip = null;
         }
 
-        if (other.gameObject.tag == "DialogueTrigger")
+        if (other.gameObject.name == "ForestArea")
         {
-
+            cameraScript.ReturnCamera();
         }
+    }
+
+    public void ChangeLevel(int levelNumber)
+    {
+        SceneManager.LoadScene(levelNumber);
     }
 }

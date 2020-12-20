@@ -47,6 +47,14 @@ public class CameraScript : MonoBehaviour
         }
     }
 
+    public void OverHeadCamera()
+    {
+        canMoveCamera = false;
+        cameraDistance = 10f;
+        cameraHeight = 7f;
+        cameraRotation = 45f;
+    }
+
     public void DialogueCamera()
     {
         cameraDistance = 7f;
@@ -62,6 +70,5 @@ public class CameraScript : MonoBehaviour
         cameraHeight = 7f;
         cameraRotation = 30f;
         canMoveCamera = true;
-
     }
 }

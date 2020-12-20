@@ -6,16 +6,45 @@ public class NPCScript : MonoBehaviour
 {
     public GameObject dialogueIndicator;
 
+    public enum NPCcharacter { Bird, Bear, Fish, Fox}
+    public NPCcharacter character;
+
+    public int dialogueNumber;
+
+    private DialogueManager dialogueManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        dialogueManager = GameObject.Find("GameManager").GetComponent<DialogueManager>();
         dialogueIndicator.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetDialogue()
     {
-        
+        switch (character)
+        {
+            case NPCcharacter.Bird:
+                dialogueNumber = 1;
+                break;
+
+            case NPCcharacter.Bear:
+                dialogueNumber = 2;
+                break;
+
+            case NPCcharacter.Fish:
+                dialogueNumber = 3;
+                break;
+
+            case NPCcharacter.Fox:
+                dialogueNumber = 4;
+                break;
+
+            default:
+                break;
+        }
+
+        dialogueManager.ChangeDialogue(dialogueNumber);
     }
 
     private void OnTriggerEnter(Collider other)
