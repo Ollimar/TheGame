@@ -192,6 +192,21 @@ public class PlayerScript : MonoBehaviour
             ChangeLevel(0);
         }
 
+        if (other.gameObject.name == "DoorToHomeUpStairs")
+        {
+            ChangeLevel(3);
+        }
+
+        if(other.gameObject.name == "DoorToDownStairs")
+        {
+            ChangeLevel(1);
+        }
+
+        if (other.gameObject.name == "DoorToFirePlace")
+        {
+            ChangeLevel(2);
+        }
+
     }
 
     private void OnTriggerStay(Collider other)

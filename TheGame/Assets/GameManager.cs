@@ -21,8 +21,13 @@ public class GameManager : MonoBehaviour
     public Texture skyDay;
     public Texture skyNight;
 
+    public GameObject[] decorationItems;
+    public GameObject[] storyBooks;
+
     // Missions and progression variables
     public string[] missions;
+
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
