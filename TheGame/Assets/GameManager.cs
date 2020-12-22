@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,14 +26,28 @@ public class GameManager : MonoBehaviour
     public GameObject[] storyBooks;
 
     // Missions and progression variables
-    public string[] missions;
+    public bool[] missions;
 
-    public GameManager gameManager;
+    public static GameManager gameManager;
 
+
+    void Awake()
+    {
+        if(gameManager == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            gameManager = this;
+        }
+
+        else if(gameManager != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+            
     }
 
     // Update is called once per frame
