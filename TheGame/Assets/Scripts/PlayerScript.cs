@@ -40,7 +40,7 @@ public class PlayerScript : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
-        dialogueManager = GameObject.Find("GameManager").GetComponent<DialogueManager>();
+        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
     }
 
@@ -190,6 +190,7 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.name == "DoorInToOut")
         {
             ChangeLevel(0);
+            dialogueManager.ReturnLevel();
         }
 
         if (other.gameObject.name == "DoorToHomeUpStairs")

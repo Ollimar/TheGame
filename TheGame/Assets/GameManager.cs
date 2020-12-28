@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public float stopTime;
     public float wheelSpeed;
     public int wheels;
-    public Transform[] wheel;
+    public GameObject[] wheel;
     public bool rotate = false;
 
     public GameObject sun;
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public Texture skyDay;
     public Texture skyNight;
 
-    public GameObject[] decorationItems;
+    public GameObject[] npc;
     public GameObject[] storyBooks;
 
     // Missions and progression variables
@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gameManager;
 
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
     void Awake()
     {
@@ -47,7 +52,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            
+        wheel = GameObject.FindGameObjectsWithTag("Wheel");
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        wheel = GameObject.FindGameObjectsWithTag("Wheel");
+        npc = GameObject.FindGameObjectsWithTag("NPC");
     }
 
     // Update is called once per frame
@@ -85,11 +96,18 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(rotate)
-        {
-            wheel[0].Rotate(Vector3.up * wheelSpeed);
-            wheel[1].Rotate(Vector3.up * -wheelSpeed);
-            wheel[2].Rotate(Vector3.up * -wheelSpeed);
-        }
+            if (rotate)
+            {
+                wheel[0].transform.Rotate(Vector3.up * wheelSpeed);
+                wheel[1].transform.Rotate(Vector3.up * -wheelSpeed);
+                wheel[2].transform.Rotate(Vector3.up * -wheelSpeed);
+            }
+    }
+
+    public void MissionComplete(int mission)
+    {
+        missions[mission] = true;
+        int nPc = npc[mission].GetComponentInChildren<NPCScript>().npcNumber;
+        npc[nPc].GetComponentInChildren<NPCScript>().missionComplete = true;
     }
 }

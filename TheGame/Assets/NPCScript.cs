@@ -11,38 +11,69 @@ public class NPCScript : MonoBehaviour
 
     public int dialogueNumber;
 
+    public int npcNumber;
+    public bool missionComplete = false;
+
     private DialogueManager dialogueManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        dialogueManager = GameObject.Find("GameManager").GetComponent<DialogueManager>();
+        dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         dialogueIndicator.SetActive(false);
     }
 
     public void SetDialogue()
     {
-        switch (character)
+        if(!missionComplete)
         {
-            case NPCcharacter.Bird:
-                dialogueNumber = 1;
-                break;
+            switch (character)
+            {
+                case NPCcharacter.Bird:
+                    dialogueNumber = 1;
+                    break;
 
-            case NPCcharacter.Bear:
-                dialogueNumber = 2;
-                break;
+                case NPCcharacter.Bear:
+                    dialogueNumber = 2;
+                    break;
 
-            case NPCcharacter.Fish:
-                dialogueNumber = 3;
-                break;
+                case NPCcharacter.Fish:
+                    dialogueNumber = 3;
+                    break;
 
-            case NPCcharacter.Fox:
-                dialogueNumber = 4;
-                break;
+                case NPCcharacter.Fox:
+                    dialogueNumber = 4;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
+        else
+        {
+            switch (character)
+            {
+                case NPCcharacter.Bird:
+                    dialogueNumber = 5;
+                    break;
+
+                case NPCcharacter.Bear:
+                    dialogueNumber = 6;
+                    break;
+
+                case NPCcharacter.Fish:
+                    dialogueNumber = 7;
+                    break;
+
+                case NPCcharacter.Fox:
+                    dialogueNumber = 8;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
 
         dialogueManager.ChangeDialogue(dialogueNumber);
     }

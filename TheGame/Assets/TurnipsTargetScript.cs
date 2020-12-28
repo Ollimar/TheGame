@@ -17,10 +17,7 @@ public class TurnipsTargetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(hits >= 3)
-        {
-            gm.missions[0] = true;
-        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +28,10 @@ public class TurnipsTargetScript : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
             other.GetComponent<Rigidbody>().useGravity = false;
             other.GetComponent<Collider>().enabled = false;
+            if (hits >= 3)
+            {
+                gm.MissionComplete(0);
+            }
         }
     }
 }

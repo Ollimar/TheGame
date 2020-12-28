@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dialogueWindow = GameObject.Find("DialogueBoxTest");
         player = GameObject.Find("Player").GetComponent<PlayerScript>();
         dialogueWindow.SetActive(false);
         dialogueText.text = currentLine;
@@ -131,6 +132,15 @@ public class DialogueManager : MonoBehaviour
         cameraScript.ReturnCamera();
         lineNumber = 0;
         dialogueWindow.SetActive(false);
+    }
+
+    public void ReturnLevel()
+    {
+        dialogueWindow = GameObject.Find("DialogueBoxTest");
+        player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        dialogueWindow.SetActive(false);
+        dialogueText.text = currentLine;
+        cameraScript = Camera.main.GetComponent<CameraScript>();
     }
 
     public IEnumerator ShowText()
