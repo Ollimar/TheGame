@@ -35,6 +35,10 @@ public class PlayerScript : MonoBehaviour
     private DialogueManager dialogueManager;
     private NPCScript npc;
 
+
+    // Variables for digging mechanic
+    public bool canDig = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +77,7 @@ public class PlayerScript : MonoBehaviour
                 holdingTurnip = false;
                 canPickTurnip = true;
             }
+
         }
     }
 
@@ -159,6 +164,13 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 transform.parent = null;
+            }
+
+            if(hit.transform.tag == "SandCube" && Input.GetButtonDown("Fire1"))
+            {
+                print("OnSand");
+                hit.transform.gameObject.SetActive(false);
+                canDig = true;
             }
 
             canJump = true;
