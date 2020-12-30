@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject spaceShip;
+
     public float timer;
     public float changeTimer;
     public float moveTimer;
@@ -30,6 +33,12 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gameManager;
 
+    // Variable for checking if we are in spaceship
+    public bool flying = false;
+
+    // Camera
+    private CameraScript cam;
+
 
     void OnEnable()
     {
@@ -52,13 +61,19 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        wheel = GameObject.FindGameObjectsWithTag("Wheel");
+        wheel       = GameObject.FindGameObjectsWithTag("Wheel");
+        player      = GameObject.FindGameObjectWithTag("Player");
+        spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
+        cam         = Camera.main.GetComponent<CameraScript>();
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        wheel = GameObject.FindGameObjectsWithTag("Wheel");
-        npc = GameObject.FindGameObjectsWithTag("NPC");
+        player      = GameObject.FindGameObjectWithTag("Player");
+        spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
+        cam         = Camera.main.GetComponent<CameraScript>();
+        wheel       = GameObject.FindGameObjectsWithTag("Wheel");
+        npc         = GameObject.FindGameObjectsWithTag("NPC");
     }
 
     // Update is called once per frame
@@ -96,12 +111,34 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        // This is for rotating the wooden cogs
+
+        /*
             if (rotate)
             {
                 wheel[0].transform.Rotate(Vector3.up * wheelSpeed);
                 wheel[1].transform.Rotate(Vector3.up * -wheelSpeed);
                 wheel[2].transform.Rotate(Vector3.up * -wheelSpeed);
             }
+        */
+
+    }
+
+    public void ActivateFly()
+    {
+        flying = true;
+        spaceShip.GetComponent<SpaceShipScript>().activate = true;
+        cam.FlyCamera();
+        player.SetActive(false);
+    }
+
+    public void ActivateWalk()
+    {
+        flying = false;
+        cam.ReturnCamera();
+        player.transform.position = new Vector3(spaceShip.transform.position.x,spaceShip.transform.position.y,spaceShip.transform.position.z+5f);
+        player.SetActive(true);
     }
 
     public void MissionComplete(int mission)

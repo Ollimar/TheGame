@@ -6,6 +6,11 @@ public class CameraScript : MonoBehaviour
 {
     public Transform target;
 
+    // Camera Targets
+
+    private Transform flyTarget;
+    public Transform landTarget;
+
     public float cameraHeight = 3f;
     public float cameraDistance = 3f;
 
@@ -16,10 +21,11 @@ public class CameraScript : MonoBehaviour
     public bool canMoveCamera = true;
     public bool dialogueOn = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        flyTarget = GameObject.FindGameObjectWithTag("SpaceShip").transform;
     }
 
     // Update is called once per frame
@@ -55,6 +61,15 @@ public class CameraScript : MonoBehaviour
         cameraRotation = 45f;
     }
 
+    public void FlyCamera()
+    {
+        canMoveCamera = false;
+        cameraDistance = 15f;
+        cameraHeight = 20f;
+        cameraRotation = 45f;
+        target = flyTarget;
+    }
+
     public void DialogueCamera()
     {
         cameraDistance = 7f;
@@ -70,5 +85,6 @@ public class CameraScript : MonoBehaviour
         cameraHeight = 7f;
         cameraRotation = 30f;
         canMoveCamera = true;
+        target = landTarget;
     }
 }

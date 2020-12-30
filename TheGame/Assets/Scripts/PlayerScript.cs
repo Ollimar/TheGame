@@ -35,13 +35,15 @@ public class PlayerScript : MonoBehaviour
     private DialogueManager dialogueManager;
     private NPCScript npc;
 
-
     // Variables for digging mechanic
     public bool canDig = false;
 
-    // Start is called before the first frame update
+    // Variable for gamemanager that is persistent throughout the game
+    private GameManager gm;
+
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponent<Animator>();
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
@@ -218,6 +220,12 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.name == "DoorToFirePlace")
         {
             ChangeLevel(2);
+        }
+
+        if(other.gameObject.name == "SpaceShipTrigger")
+        {
+            gm.ActivateFly();
+            gameObject.SetActive(false);
         }
 
     }

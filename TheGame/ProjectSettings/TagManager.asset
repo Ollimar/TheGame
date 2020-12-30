@@ -11,6 +11,8 @@ TagManager:
   - Trampoline
   - NPC
   - SandCube
+  - SpaceShip
+  - LandingPlatform
   layers:
   - Default
   - TransparentFX
