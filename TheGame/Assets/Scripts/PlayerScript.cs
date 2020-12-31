@@ -10,7 +10,10 @@ public class PlayerScript : MonoBehaviour
     public float jumpSpeed = 12f;
     public float turnSmoothing = 10f;
     public bool canJump = false;
+    public bool canFly = false;
     public float coolDownTime = 0f;
+
+    public GameObject launchButton;
 
     private Vector3 movement;
     private Rigidbody myRB;
@@ -48,6 +51,7 @@ public class PlayerScript : MonoBehaviour
         myAnim = GetComponent<Animator>();
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
+        launchButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -80,6 +84,11 @@ public class PlayerScript : MonoBehaviour
                 canPickTurnip = true;
             }
 
+        }
+
+        if(Input.GetButtonDown("Jump")&&canFly)
+        {
+            StartFlight();
         }
     }
 
@@ -224,8 +233,8 @@ public class PlayerScript : MonoBehaviour
 
         if(other.gameObject.name == "SpaceShipTrigger")
         {
-            gm.ActivateFly();
-            gameObject.SetActive(false);
+            launchButton.SetActive(true);
+            canFly = true;
         }
 
     }
@@ -264,10 +273,24 @@ public class PlayerScript : MonoBehaviour
         {
             cameraScript.ReturnCamera();
         }
+
+        if (other.gameObject.name == "SpaceShipTrigger")
+        {
+            launchButton.SetActive(false);
+            canFly = false;
+        }
     }
 
     public void ChangeLevel(int levelNumber)
     {
         SceneManager.LoadScene(levelNumber);
+    }
+
+    public void StartFlight()
+    {
+        gm.ActivateFly();
+        canFly = false;
+        launchButton.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

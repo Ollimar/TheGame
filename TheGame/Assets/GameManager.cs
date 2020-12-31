@@ -129,6 +129,8 @@ public class GameManager : MonoBehaviour
     {
         flying = true;
         spaceShip.GetComponent<SpaceShipScript>().activate = true;
+        spaceShip.GetComponent<Rigidbody>().isKinematic = false;
+        spaceShip.GetComponent<Rigidbody>().useGravity = true;
         cam.FlyCamera();
         player.SetActive(false);
     }
@@ -137,6 +139,8 @@ public class GameManager : MonoBehaviour
     {
         flying = false;
         cam.ReturnCamera();
+        spaceShip.GetComponent<Rigidbody>().isKinematic = true;
+        spaceShip.GetComponent<Rigidbody>().useGravity = false;
         player.transform.position = new Vector3(spaceShip.transform.position.x,spaceShip.transform.position.y,spaceShip.transform.position.z+5f);
         player.SetActive(true);
     }
