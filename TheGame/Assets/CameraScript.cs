@@ -64,7 +64,7 @@ public class CameraScript : MonoBehaviour
     public void FlyCamera()
     {
         canMoveCamera = false;
-        cameraDistance = 15f;
+        cameraDistance = 25f;
         cameraHeight = 20f;
         cameraRotation = 45f;
         target = flyTarget;

@@ -9,10 +9,17 @@ public class SpaceShipScript : MonoBehaviour
     public float turnSmoothing = 15f;
     private Vector3 movement;
     private Rigidbody myRB;
+    private Animator myAnim;
+
+    public float launchTimer;
+    public float launchPower = 600f;
 
     public bool activate = false;
     public bool canMove = false;
     public bool canLand = false;
+
+    public bool stage1 = true;
+    public bool stage2 = false;
 
     public Transform landingTarget;
 
@@ -23,8 +30,10 @@ public class SpaceShipScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        myRB = GetComponent<Rigidbody>();
+        gm      = GameObject.Find("GameManager").GetComponent<GameManager>();
+        myRB    = GetComponent<Rigidbody>();
+        myAnim  = GetComponent<Animator>();
+        myAnim.enabled = false;
         landButton.SetActive(false);
     }
 
@@ -33,7 +42,13 @@ public class SpaceShipScript : MonoBehaviour
     {
         if(Input.GetButton("Jump") && activate)
         {
-            myRB.AddForce(Vector3.up * 100f);
+           myRB.AddForce(Vector3.up * launchPower);
+        }
+
+        if(Input.GetButtonUp("Jump"))
+        {
+            //myAnim.enabled = false;
+            launchTimer = 0f;
         }
 
         if(Input.GetButton("Jump") && canLand)
@@ -48,6 +63,7 @@ public class SpaceShipScript : MonoBehaviour
             myRB.useGravity = false;
             myRB.isKinematic = true;
             myRB.velocity = Vector3.zero;
+            //RenderSettings.skybox = gm.skyBoxNight;
             //transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
     }
